@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
+
+<title>stateless-maybe-js-ie6-test-env</title>
+
+<body>
+
+<script src="grampa-js/src/grampa.js"></script>
+<script src="stateless-maybe-js/dist/maybe.min.js"></script>
+
+<script>
+
+var display = grampa.display;
+
+function showMaybe (maybe) {
+  return maybe
+    .map(function (val) {
+      return 'Just(' + display.stringify(val) + ')';
+    })
+    .getOrElse('Nothing');
+}
+
+function parseNum (str) {
+  var parsed = parseFloat(str);
+
+  return isNaN(parsed) ? maybe.nothing : maybe.just(parsed);
+}
+
+function increment (n) {
+  return n + 1;
+}
+
+display.add("maybe('hello, world') = ", showMaybe(maybe('hello, world')));
+display.add("maybe(undefined) = ", showMaybe(maybe(undefined)));
+display.add("maybe(null) = ", showMaybe(maybe(null)));
+
+display.add("parseNum('0') = ", showMaybe(parseNum('0')));
+display.add("parseNum(' ') = ", showMaybe(parseNum(' ')));
+
+display.add("parseNum('0').map(increment) = ", showMaybe(parseNum('0').map(increment)));
+display.add("parseNum(' ').map(increment) = ", showMaybe(parseNum(' ').map(increment)));
+
+display.add("maybe(0).filter(() => true) = ", showMaybe(maybe(0).filter(function () { return true; })));
+display.add("maybe(0).filter(() => false) = ", showMaybe(maybe(0).filter(function () { return false; })));
+
+display.add("maybe({}).forEach(obj => obj.prop = true) = ", showMaybe(maybe({}).forEach(function (obj) { obj.prop = true; })));
+</script>
+
+</body>
+
+</html>

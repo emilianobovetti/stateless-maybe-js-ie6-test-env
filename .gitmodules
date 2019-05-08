@@ -1,0 +1,6 @@
+[submodule "grampa-js"]
+	path = grampa-js
+	url = https://github.com/emilianobovetti/grampa-js.git
+[submodule "stateless-maybe-js"]
+	path = stateless-maybe-js
+	url = https://github.com/emilianobovetti/stateless-maybe-js.git
